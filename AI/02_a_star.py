@@ -1,4 +1,6 @@
 import copy
+
+
 class Node:
     def __init__(self, data, level, fval):
         self.data = data
@@ -6,7 +8,7 @@ class Node:
         self.fval = fval
 
     def generate_child(self):
-        x, y = self.find(self.data, '_')
+        x, y = self.find(self.data, "_")
         val_list = [[x, y - 1], [x, y + 1], [x - 1, y], [x + 1, y]]
         children = []
         for i in val_list:
@@ -32,6 +34,7 @@ class Node:
                 if data[i][j] == x:
                     return i, j
 
+
 class Puzzle:
     def __init__(self, size):
         self.size = size
@@ -52,7 +55,7 @@ class Puzzle:
         temp = 0
         for i in range(0, self.size):
             for j in range(0, self.size):
-                if start[i][j] != goal[i][j] and start[i][j] != '_':
+                if start[i][j] != goal[i][j] and start[i][j] != "_":
                     temp += 1
         return temp
 
@@ -72,7 +75,7 @@ class Puzzle:
                 for j in i:
                     print(j, end=" ")
                 print("")
-            if (self.h(cur.data, goal) == 0):
+            if self.h(cur.data, goal) == 0:
                 break
             for i in cur.generate_child():
                 i.fval = self.f(i, goal)
@@ -80,6 +83,7 @@ class Puzzle:
             self.closed.append(cur)
             del self.open[0]
             self.open.sort(key=lambda x: x.fval, reverse=False)
+
 
 puz = Puzzle(3)
 puz.process()
